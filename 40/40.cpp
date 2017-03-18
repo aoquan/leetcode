@@ -15,7 +15,7 @@ class Solution {
             return s;
         }
         void backtrace(vector<int>& vct_int,int target, int l){
-            if(l>=candi.size()){
+            if(l>candi.size()){
                 return ;
             }
             int sum_vct = sum(vct_int);
