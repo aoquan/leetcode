@@ -107,10 +107,29 @@ class Solution{
             head->next=NULL;
             return new_head;
         }
+
+        node * merge(node * head1,node * head2){
+            if(!head1) return head2;
+            if(!head2) return head1;
+        
+            node * head = NULL;
+            if(head1->val < head2->val){
+                head = head1;
+                head->next = merge(head1->next,head2);
+            }
+            else{
+                head = head2;
+                head->next = merge(head1,head2->next);
+            }
+            return head;
+        }
 };
 int main(){
     Solution s;
-    node * head = s.create_list();
+    node * head1 = s.create_list();
+    node * head2 = s.create_list();
+    node * head = s.merge(head1,head2);
+    s.show(head);
 //    s.show(head);
 //    s.delete_node(head,5);
 //    s.show(head);
@@ -121,9 +140,13 @@ int main(){
 //   s.insert_node_after_num(head,3);
 //   s.show(head);
 
-    s.sort_list(head);
-    s.show(head);
+//    s.sort_list(head);
+//    s.show(head);
     
-    head = s.reverse_list(head);
-    s.show(head);
+//    head = s.reverse_list(head);
+//    s.show(head);
+    
+
+
+
 }

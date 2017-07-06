@@ -89,7 +89,7 @@ int main(){
     s.delete_node(3);
     s.show();
     */
-    s.reverse_list();
+//    s.reverse_list();
     s.show();
 
 }

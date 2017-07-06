@@ -16,14 +16,14 @@ public:
     int quickSort(vector<int>& a,int l,int h){
         int tmp = a[l];
         while(l<h){
-            while(a[h]>=tmp&&h>l){
+            while(a[h]<=tmp&&h>l){
                 h--;
             }
             if(h>l){
                 a[l++]=a[h];
             }
 
-            while(a[l]<tmp&&h>l){
+            while(a[l]>tmp&&h>l){
                 l++;
             }
             if(h>l){
