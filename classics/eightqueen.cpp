@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-int c[8], n=8, cnt=0;
+int c[8], n=4, cnt=0;
 void print(){
     for(int i=0; i<n; ++i){
         for(int j=0; j<n; ++j){

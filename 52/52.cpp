@@ -5,19 +5,20 @@ class Solution {
     private:
         int size;
         int * maxtix;
+        int total;
     public:
-            vector<vector<string> >solveNQueens(int n) {
+            int totalNQueens(int n){
                 size = n;
+                total = 0;
                 maxtix = new int[n];
-                vector<vector<string> > result;
-                Search(result,0);
-                return result;
+                Search(0);
+                return total;
             }
-            void Search(vector<vector<string> >& result, int r){
+            void Search(int r){
                 int i,j;
                 bool isOk;
                 if(r >= size){
-                    PutVct(result);
+                    total ++;
                     return;
                 }
                 for(i = 0; i < size ;i++){
@@ -30,29 +31,16 @@ class Solution {
                         }
                     }
                     if(isOk){
-                        Search(result,r+1);
+                        Search(r+1);
                     }
                 }
             }
 
-            void PutVct(vector<vector<string> >& result){
-                int i;
-                vector<string> vct;
-                string tmp;
-                for(i = 0; i < size; i++){
-                    tmp = string(size,'.');
-                    tmp[maxtix[i]] = 'Q';
-                    //cout<<tmp<<endl;
-                    vct.push_back(tmp);
-                }
-                result.push_back(vct);
-                //cout<<endl;
-            }
 };
 int main(){
     Solution s;
     int n;
     cin>> n;
-    s.solveNQueens(n);
+    cout<<s.totalNQueens(n)<<endl;
     return 0;
 }
