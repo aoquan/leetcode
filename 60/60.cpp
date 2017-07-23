@@ -3,34 +3,25 @@
 #include <algorithm>
 using namespace std;
 class Solution {
-    private:
-        string str;
-        vector<string> vct;
     public:
         string getPermutation(int n, int k) {
-            int i;
-            str = "";
-            for(i = 0; i < n; i++){
-                str += '1' + i;
+            string str = "", nums = "1234567890";
+            int fac[10];
+            int i, j, tmp;
+            fac[0] = 1;
+            for(i = 1; i <= n; i++){
+                fac[i] = fac[i - 1] * i;
             }
-            permutaion(0,n,k);
-            sort(vct.begin(),vct.end());
-            return vct[k-1];
-        }
-
-        void permutaion(int d,int n,int k){
-            if(d >= n){
-                vct.push_back(str);
-                return ;
-            }
-            else{
-                int i;
-                for(i = d; i < n; i++){
-                    swap(str[d],str[i]);
-                    permutaion(d + 1, n, k);
-                    swap(str[d],str[i]);
+            k--;
+            for(i = 1; i <= n; i++){
+                tmp = k / fac[n - i];
+                str +=  nums[tmp];
+                for(j = tmp; j < n; j++){
+                    nums[j] = nums[j + 1];
                 }
+                k = k % fac[n - i];
             }
+            return str;
         }
 };
 int main(){
