@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<stack>
+#include<vector>
 using namespace std;
 ifstream ifs("input.txt");
 class node{
@@ -110,6 +111,79 @@ class Tree{
                 }
             }
         }
+
+        void get_sum(node * root,int sum,int target,vector<int> vct){
+            if(root){
+                sum += root->val;
+                vct.push_back(root->val);
+                if(sum == target){
+                    int i;
+                    for(i=0;i<vct.size();i++){
+                        cout<<vct[i]<<" ";
+                    }
+                    cout<<endl;
+                }
+                else{
+                    get_sum(root->l,sum,target,vct);
+                    get_sum(root->r,sum,target,vct);
+                }
+            }
+        }
+
+
+        vector<int> road;
+        void get_sum_stack(node * root,int sum,int target){
+            if(!root) return ;
+
+            sum += root->val;
+            if(sum > target)return ;
+
+            road.push_back(root->val);
+            if(sum==target){
+                int i;
+                for(i=0;i<road.size();i++){
+                    cout<<road[i]<<" ";
+                }
+                cout<<endl;
+                road.pop_back();
+                return;
+            }
+
+            get_sum_stack(root->l,sum,target);
+            get_sum_stack(root->r,sum,target);
+            road.pop_back();
+        }
+
+        //binary tree --> double list
+        void tree2List(node * & root,node *& pfirst,node *& plast){
+            node * pl1,*pl2,*pr1,*pr2;
+            if(root==NULL) {
+                pfirst = NULL;
+                plast =NULL ;
+                return ;
+            }
+            if(root->l==NULL){
+                pfirst = root;
+            }
+            else{
+                tree2List(root->l,pl1,pl2);
+                pfirst = pl1;
+                root->l = pl2;
+                pl2->r = root;
+            }
+
+            if(root->r == NULL){
+                plast = root ;
+            }
+            else{
+                tree2List(root->r,pr1,pr2);
+                plast = pr2;
+                root->r = pr1;
+                pr1->l = root;
+            }
+            return ;
+        }
+
 };
 
 int main(){
@@ -127,5 +201,19 @@ int main(){
     tree.after_order(root);
     cout<<endl;
     tree.after_order1(root);
+    cout<<endl;
+    cout<<"####################"<<endl;
+    vector<int> vct;
+    tree.get_sum(root,0,5,vct);
+    tree.get_sum_stack(root,0,5);
+
+    cout<<"######################"<<endl;
+    node * pfirst,*plast;
+    tree.tree2List(root,pfirst,plast);
+    int i;
+    for(i=0;i<5;i++){
+        cout<<pfirst->val<<" ";
+        pfirst = pfirst->r;
+    }
     cout<<endl;
 }
